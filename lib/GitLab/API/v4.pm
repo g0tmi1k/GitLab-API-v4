@@ -102,6 +102,8 @@ use Moo;
 use strictures 2;
 use namespace::clean;
 
+use Data::Dumper;
+
 sub BUILD {
     my ($self) = @_;
 
@@ -119,6 +121,8 @@ sub _call_rest_client {
     my ($self, $verb, $path, $path_vars, $options) = @_;
 
     $options->{headers} = $self->_auth_headers();
+print "--options:\n";
+print Dumper(\$options);
 
     return $self->rest_client->request(
         $verb, $path, $path_vars, $options,

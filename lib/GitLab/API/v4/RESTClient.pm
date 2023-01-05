@@ -54,6 +54,8 @@ use Moo;
 use strictures 2;
 use namespace::clean;
 
+use Data::Dumper;
+
 sub croak {
     local $Carp::Internal{ 'GitLab::API::v4' } = 1;
     local $Carp::Internal{ 'GitLab::API::v4::RESTClient' } = 1;
@@ -200,6 +202,9 @@ sub request {
 
     $options->{content} = $content if defined $content;
 
+print "--req:\n";
+print Dumper(\$req);
+
     $self->_set_request( $req );
 
     my $res;
@@ -244,6 +249,9 @@ sub request {
             );
         };
     }
+
+print "--How did we get here?\n";
+print Dumper(\$res);
 
     my $glimpse = $res->{content} || '';
     $glimpse =~ s{\s+}{ }g;
